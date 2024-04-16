@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="PlannerWpf.Views.CreateTaskView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.10*" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.10*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.10*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.10*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="X" FontSize="36" 
+                    Command="{Binding BackCommand}"/>
+            <TextBlock Grid.Column="1" TextAlignment="Center" Text="Новая задача"/>
+            <Button Grid.Column="2" Content="V" FontSize="36" 
+                    Command="{Binding CreateTaskCommand}"/>
+        </Grid>
+        <TabControl Grid.Row="1" TabStripPlacement="Top">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <TextBlock Text="Главное" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Название задачи:"/>
+                        <StackPanel Background="WhiteSmoke">
+                            <TextBox Margin="10" Text="{Binding CreatedTask.Name}"/>
+                        </StackPanel>
+                        <TextBlock Text="Проект:"/>
+                        <StackPanel Background="WhiteSmoke">
+                            <ComboBox Margin="10" ItemsSource="{Binding Account.Projects}"
+                                      SelectedItem="{Binding SelectedProject}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <TextBlock Text="Сроки задачи:"/>
+                        <StackPanel Background="WhiteSmoke" Orientation="Horizontal">
+                            <TextBlock Margin="5" Text="{Binding CreatedTask.FinishDate, StringFormat=Закончить:  {0:dd.MM.yyyy H:mm}}"/>
+                            <Button Margin="5" Content="+"
+                                    Command="{Binding OpenSetDateCommand}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

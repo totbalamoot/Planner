@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="PlannerWpf.Views.ProjectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.10*" />
+            <RowDefinition Height="0.10*" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.10*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.10*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.10*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Command="{Binding BackCommand}">
+                <TextBlock Text="назад"/>
+            </Button>
+            <TextBlock Grid.Column="1" TextAlignment="Center" Text="Проект"/>
+        </Grid>
+        <TextBlock Grid.Row="1" TextAlignment="Center" Text="{Binding Project.Name}"/>
+        <Expander Grid.Row="2" IsExpanded="True">
+            <Expander.Header>
+                <TextBlock Text="{Binding Project.Tasks.Count, StringFormat=задач: {0}}"/>
+            </Expander.Header>
+            <ListBox ItemsSource="{Binding Project.Tasks}"
+                     SelectedItem="{Binding SelectedTask}">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Редактировать" Command="{Binding OpenEditTaskCommand}"/>
+                        <MenuItem Header="Удалить" Command="{Binding RemoveTaskCommand}"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5">
+                            <TextBlock Text="{Binding Name}"/>
+                            <TextBlock Foreground="Gray" 
+                                       Text="{Binding FinishDate, StringFormat=*        {0:dd.MM.yyyy H:mm}}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Expander>
+        <Button Grid.Row="3" Content="Добавить задачу"
+                 Command="{Binding OpenCreateTaskCommand}"/>
+    </Grid>
+</UserControl>

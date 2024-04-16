@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="PlannerWpf.Views.SetDateView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.10*" />
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.10*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.10*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.10*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="X" FontSize="36" 
+                    Command="{Binding BackCommand}"/>
+            <TextBlock Grid.Column="1" TextAlignment="Center" Text="дата"/>
+            <Button Grid.Column="2" Content="V" FontSize="36" 
+                    Command="{Binding SetDateTimeCommand}"/>
+        </Grid>
+        <StackPanel Grid.Row="1">
+            <StackPanel Background="WhiteSmoke">
+                <Calendar SelectedDate="{Binding SelectedDate}"/>
+            </StackPanel>
+            <TextBlock Text="Время:" HorizontalAlignment="Center"/>
+            <StackPanel Background="WhiteSmoke" Orientation="Horizontal" HorizontalAlignment="Center">
+                <ComboBox Margin="10" ItemsSource="{Binding HoursList}"
+                                      SelectedItem="{Binding SelectedHour}"/>
+                <TextBlock Margin="10" Text="   :   "/>
+                <ComboBox Margin="10" ItemsSource="{Binding MinutesList}"
+                                      SelectedItem="{Binding SelectedMinute}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
